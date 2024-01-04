@@ -13,18 +13,23 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-    image:{
-        type: Object,
-        required:true,
+    phone: {
+      type: String,
     },
-    phone:{
-        type:String,
+    password: {
+      type: String,
+      required: true,
     },
-    password:{
-        type:String,
-        required:true,
+    profilePicture: {
+      type: Object,
     },
     address: {
+      type: String,
+    },
+    cover: {
+      type: [String],
+    },
+    file: {
       type: String,
     },
     confirmEmail: {
@@ -45,10 +50,10 @@ const userSchema = new Schema(
       default: "User",
       enum: ["User", "Admin"],
     },
-    sendCode:{
+    sendCode: {
       type: String,
       default: null,
-    }
+    },
   },
   {
     timestamps: true,
