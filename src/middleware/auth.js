@@ -17,7 +17,7 @@ export const auth = (accessRoles = []) => {
     if (!decoded) {
       return res.status(400).json({ message: "Invalid authorization!" });
     }
-    const user = await userModel.findById(decoded.id).select("userName role changePasswordTime");
+    const user = await userModel.findById(decoded.id).select("userName role email");
     if (!user) {
       return res.status(400).json({ message: "Not registered user" });
     }
