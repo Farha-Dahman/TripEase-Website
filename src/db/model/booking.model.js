@@ -15,6 +15,10 @@ const bookingSchema = new mongoose.Schema({
   },
   numberOfPeople: { type: Number, required: true },
   specialRequests: { type: String },
+  confirmBooking: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const bookingModel = mongoose.models.Booking || mongoose.model("Booking", bookingSchema);
