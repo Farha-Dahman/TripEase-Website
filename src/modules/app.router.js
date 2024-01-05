@@ -5,6 +5,7 @@ import tourPackageRouter from "./tourPackage/tourPackage.router.js";
 import bookingRouter from "./booking/booking.router.js";
 import userRouter from "./user/user.router.js";
 import blogRouter from "./blog/blog.router.js";
+import reviewRouter from "./review/review.router.js";
 
 const initApp = (app, express) => {
   app.use(express.json());
@@ -17,6 +18,7 @@ const initApp = (app, express) => {
   app.use("/booking", bookingRouter);
   app.use("/user", userRouter);
   app.use("/blog", blogRouter);
+  app.use("/review", reviewRouter);
 
   app.get("*", (req, res) => {
     return res.status(500).json({ message: "Page not found" });
