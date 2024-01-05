@@ -15,8 +15,7 @@ export const profile = async (req, res, next) => {
   const user = await userModel.findByIdAndUpdate(req.user._id, {
     profilePicture: { public_id, secure_url },
   });
-
-  return res.json({ message: "success", user });
+  return res.status(200).json({ message: "success", user });
 };
 
 export const coverPicture = async (req, res) => {
@@ -32,7 +31,7 @@ export const coverPicture = async (req, res) => {
     { cover: coverPicture },
     { new: true }
   );
-  return res.json({ message: "success", user });
+  return res.status(200).json({ message: "success", user });
 };
 
 export const addFile = async (req, res) => {
@@ -44,7 +43,7 @@ export const addFile = async (req, res) => {
     { file: secure_url },
     { new: true }
   );
-  return res.json({ message: "success", user });
+  return res.status(200).json({ message: "success", user });
 };
 
 export const changePassword = async (req, res, next) => {
@@ -60,7 +59,7 @@ export const changePassword = async (req, res, next) => {
     parseInt(process.env.SALT_ROUND)
   );
   await userModel.updateOne({ password: hashPassword });
-  return res.json(user);
+  return res.status(200).json({ message: "success", user });
 };
 
 export const sharedProfile = async (req, res, next) => {
@@ -68,5 +67,5 @@ export const sharedProfile = async (req, res, next) => {
   if (!user) {
     return res.json({ message: "user not found!" });
   }
-  return res.json({ message: "success", user });
+  return res.status(200).json({ message: "success", user });
 };

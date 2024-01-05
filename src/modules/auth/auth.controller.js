@@ -1,12 +1,11 @@
 import bcrypt from "bcryptjs";
-import cloudinary from "../../services/cloudinary.js";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../../services/email.js";
 import { customAlphabet } from "nanoid";
 import userModel from "../../db/model/user.model.js";
 
 export const signup = async (req, res, next) => {
-  const { userName, email, password } = req.body;
+  const { userName, email, password, role } = req.body;
   const user = await userModel.findOne({ email });
   if (user) {
     return next(new Error("email already exist!", { cause: 409 }));
@@ -16,12 +15,6 @@ export const signup = async (req, res, next) => {
     parseInt(process.env.SALT_ROUND)
   );
 
-  const { public_id, secure_url } = await cloudinary.uploader.upload(
-    req.file.path,
-    {
-      folder: `${process.env.APP_NAME}/users`,
-    }
-  );
   const token = jwt.sign({ email }, process.env.CONFIRM_EMAIL_SECRET, {
     expiresIn: "1h",
   });
@@ -35,7 +28,7 @@ export const signup = async (req, res, next) => {
     userName,
     email,
     password: hashedPassword,
-    image: { public_id, secure_url },
+    role,
   });
   return res.json({ message: "success", createUser });
 };
